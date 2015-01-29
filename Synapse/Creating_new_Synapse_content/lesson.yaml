@@ -27,8 +27,7 @@
 - Class: cmd_question
   Output: First, log into synapse using 'synapseLogin()'.
   CorrectAnswer: synapseLogin()
-  AnswerTests: omnitest(correctExpr='synapseLogin()')
-  Hint: Login using 'synapseLogin()'.
+  AnswerTests: checkSynLogin()
 
 - Class: cmd_question
   Output: Let's first create a unique project name. In this example, we use a random integer to generate a unique Project name, since obvious names like "Test Project" are likely to be taken already. Paste together the text of "Test Project" and a random integer using "sample(1:1e6, 1)" and save it in the 'projName' variable.
