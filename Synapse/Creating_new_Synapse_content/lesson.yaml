@@ -6,6 +6,12 @@
   Organization: Sage Bionetworks
   Version: 2.2.21
 
+- Class: cmd_question
+  Output: First, log into synapse using 'synapseLogin()'.
+  CorrectAnswer: synapseLogin()
+  AnswerTests: checkSynLogin()
+  Hint: Login using 'synapseLogin()'.
+
 - Class: text
   Output: Any registered Synapse user can create projects, construct Wikis, and access resources (e.g. files) already stored within the system. In order to ensure that users who are uploading content into the system are familiar with Synapse data sharing guidelines, users wishing to upload any content into Synapse must pass a short Synapse Certification quiz based on the contents of this tutorial. The Quiz should only take about 20 minutes and, once complete, will allow you to freely interact with the system. Once you have achieved Certified User status, you will also be able to store content (e.g. files) such as data, code, results, and the provenance relationships connecting these resources.
 
@@ -23,12 +29,6 @@
 
 - Class: text
   Output: Projects must be uniquely named in Synapse.
-
-- Class: cmd_question
-  Output: First, log into synapse using 'synapseLogin()'.
-  CorrectAnswer: synapseLogin()
-  AnswerTests: checkSynLogin()
-  Hint: Login using 'synapseLogin()'.
 
 - Class: cmd_question
   Output: Let's first create a unique project name. In this example, we use a random integer to generate a unique Project name, since obvious names like "Test Project" are likely to be taken already. Paste together the text of "Test Project" and a random integer using "sample(1:1e6, 1)" and save it in the 'projName' variable.
