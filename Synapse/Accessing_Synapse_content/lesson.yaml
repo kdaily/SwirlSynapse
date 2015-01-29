@@ -1,0 +1,76 @@
+- Class: meta
+  Course: Synapse
+  Lesson: Accessing Synapse content
+  Author: your name goes here
+  Type: Standard
+  Organization: Sage Bionetworks
+  Version: 2.2.21
+
+- Class: text
+  Output: Synapse, an open source software platform, is a tool which data scientists use to carry out, track, and communicate their research in real time. By giving this powerful tool to savvy analysts, Synapse has seeded a growing number of living research projects including the results from last year's Sage/DREAM BCC Challenge as well as ongoing work by the TCGA Pan Cancer Working Group.
+
+- Class: text
+  Output: The R synapseClient interacts with the Synapse platform from the R analytical programming tool.
+  
+- Class: cmd_question
+  Output: To start using the R Synapse client, we need to login. Type 'synapseLogin()' to login. Make sure you have a Synapse account first, and you know your username and password. If not, visit 'http://www.synapse.org/' to register.
+  CorrectAnswer: synapseLogin()
+  AnswerTests: omnitest(correctExpr='synapseLogin()')
+  Hint: To login, type 'synapseLogin()'
+
+- Class: text
+  Output:  In this section, we will discuss how to access Synapse content in a number of different ways - using examples built from within the Wondrous Research Example Project. In a Folder called data, there is a random expression matrix (syn1906480) as well as a random response vector (syn1906479) which will be used throughout these examples.
+  
+- Class: text
+  Output: Since Projects and Folders are only containers and cannot directly have any data associated with them, any time a client 'gets' information about these it is only the 'metadata', or annotations associated with these objects.
+
+- Class: cmd_question
+  Output: First we need to get the metadata for the Wondrous Research Example using the Synapse command 'synGet()' and supplying the parameter 'id' of the object we want to get.   In this case the Synapse ID of the project is 'syn1901847'.  Use the 'synGet()' command with this ID to fetch the project and assign it to the variable 'wondrousProj'.
+  CorrectAnswer: wondrousProj <- synGet("syn1901847")
+  AnswerTests: omnitest(correctExpr='wondrousProj <- synGet("syn1901847")')
+  Hint: To get the project, type 'wondrousProj <- synGet("syn1901847")'
+  
+- Class: text
+  Output: Since a 'Project' can only hold metadata, there is no data downloaded. The same is true for a 'Folder'.
+
+- Class: text
+  Output: Files, however contain both metadata (annotations) as well as a file - just like any file on your local file system. There are a few ways to get information about these with the R synapseClient.
+
+- Class: cmd_question
+  Output: The expression matrix from the Wondrous Research Example is relatively large. We can see some details on its Synapse webpage by using the 'onWeb()' function and supplying the Synapse ID ('syn1906480'). This will open up a page in your web browser, so come back to RStudio when you're done viewing that page!
+  CorrectAnswer: onWeb("syn1906480")
+  AnswerTests: omnitest(correctExpr='onWeb("syn1906480")')
+  Hint: To see the web page associated with the expression matrix, type 'onWeb("syn1906480")'
+  
+- Class: cmd_question
+  Output: In this case, we may only want to get the metadata surrounding that object and not download its associated file. This can be done by calling 'synGet()' for the Synapse ID 'syn1906480' and specifying the parameter 'downloadFile=F'. Store the metadata in a variable called 'metadataOnly'.
+  CorrectAnswer: metadataOnly <- synGet('syn1906480', downloadFile=F)
+  AnswerTests: omnitest(correctExpr="metadataOnly <- synGet('syn1906480', downloadFile=F)")
+  Hint: To download the file metadata only, without downloading the data, try typing "metadataOnly <- synGet('syn1906480', downloadFile=F)"
+  
+- Class: text
+  Output: Another file available from the Wondrous Research Example is a response matrix, awhich is very small. Its likely that we would be OK with downloading both its metadata as well as its associated file. This is the default behavior of 'synGet()' which will get all of the Synapse File metadata as well as return a 'filePath' to the location of the downloaded file. The downloaded file itself is stored inside a read-only cache on your computer.
+
+- Class: cmd_question
+  Output: Now get the response matrix using the 'synGet()' command for Synapse ID 'syn1906479' and store it in a variable called 'metadataAndFile'.
+  CorrectAnswer: metadataAndFile <- synGet('syn1906479')
+  AnswerTests: omnitest(correctExpr="metadataAndFile <- synGet('syn1906479')")
+  Hint: To download the file, try typing "metadataAndFile <- synGet('syn1906479')"
+
+- Class: cmd_question
+  Output: At this point, we have a copy of the file on the local file system. Its location can be extracted from the R object by accessing the 'filePath' slot 'metadataAndFile@filePath' (note the use of the '@' and not a '$'). Save this filepath to the variable 'localFilePath'.
+  CorrectAnswer: localFilePath <- metadataAndFile@filePath
+  AnswerTests: omnitest(correctExpr="localFilePath <- metadataAndFile@filePath")
+  Hint: To get the path to the file, try typing "localFilePath <- metadataAndFile@filePath"
+
+- Class: cmd_question
+  Output: Now, use 'localFilePath' to load the file into a data frame with 'read.delim' to the variable 'respDF'. This file has a 'header', so be sure to set that attribute when loading. The file type is tab-separated, so other default parameters to 'read.delim' are fine. From previous swirl courses, you should be familiar with exploring data frames, so feel free to poke around and then type 'swirl()' to come back.
+  CorrectAnswer: respDF <- read.delim(localFilePath, header=T)
+  AnswerTests: omnitest(correctExpr="respDF <- read.delim(localFilePath, header=T)")
+  Hint: To get the path to the file, try typing "respDF <- read.delim(localFilePath, header=T)"
+
+- Class: text
+  Output: Some data 'Files' are subject to additional data use terms. To agree to these terms, you must sign the data use terms through the Web client in order to be authorized to access these files. If you try to access these files programmatically, you will get an error message, such as "Please visit the web page for this entity (onWeb(synId)) to review and fulfill its download requirement(s)."
+
+- Class: text
+  Output: If you get an error like this, go to the Synapse webpage in your browser for that object as specified in the error message (possibly using the 'onWeb()' command. Once on that web page, click download and sign the terms of use. You will now have programmatic access to this file and all others that are covered by that same set of data use terms.

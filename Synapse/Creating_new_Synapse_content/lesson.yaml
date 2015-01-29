@@ -1,0 +1,87 @@
+- Class: meta
+  Course: Synapse
+  Lesson: Creating new Synapse content
+  Author: Kenneth Daily
+  Type: Standard
+  Organization: Sage Bionetworks
+  Version: 2.2.21
+
+- Class: text
+  Output: Any registered Synapse user can create projects, construct Wikis, and access resources (e.g. files) already stored within the system. In order to ensure that users who are uploading content into the system are familiar with Synapse data sharing guidelines, users wishing to upload any content into Synapse must pass a short Synapse Certification quiz based on the contents of this tutorial. The Quiz should only take about 20 minutes and, once complete, will allow you to freely interact with the system. Once you have achieved Certified User status, you will also be able to store content (e.g. files) such as data, code, results, and the provenance relationships connecting these resources.
+
+- Class: text
+  Output: Before you can use this lesson, you must become a certified user! So, please visit "https://www.synapse.org/#!Quiz:Certification" and pass the quiz before continuing. I'll wait!
+
+- Class: text
+  Output: Now you're certified and can create and store content in Synapse.
+  
+- Class: text
+  Output: Creating Synapse objects requires two simple steps. First, you construct a local version of the object in memory (using 'Project()', 'Folder()',  'File()', or 'Table()', for example).
+
+- Class: text
+  Output: Then, you store the object to Synapse using the 'synStore()' function. Let's try creating a project.
+
+- Class: text
+  Output: Projects must be uniquely named in Synapse.
+
+- Class: cmd_question
+  Output: Let's first create a unique project name. In this example, we use a random integer to generate a unique Project name, since obvious names like "Test Project" are likely to be taken already. Paste together the text of "Test Project" and a random integer using "sample(1:1e6, 1)" and save it in the 'projName' variable.
+  CorrectAnswer: projName <- paste("Test Project", sample(1:1e6, 1))
+  AnswerTests: omnitest(correctExpr='projName <- paste("Test Project", sample(1:1e6, 1))')
+  Hint: Save the result of 'paste("Test Project", sample(1:1e6, 1))' to the 'projName' variable.
+
+- Class: cmd_question
+  Output: The only required argument to create a "Project" is a name. Let's use "projName" to create a new project using the "Project()" function, storing it to the "myProj" variable.
+  CorrectAnswer: myProj <- Project(name=projName)
+  AnswerTests: omnitest(correctExpr='myProj <- Project(name=projName)')
+  Hint: Save the result of 'Project(name=projName)' to the 'myProj' variable.
+
+- Class: cmd_question
+  Output: Now we need to save the project we created to Synapse, using the 'synStore()' command, passing 'myProj' as a parameter. We want to return the results and update the 'myProj' variable.
+  CorrectAnswer: myProj <- synStore(myProj)
+  AnswerTests: omnitest(correctExpr='myProj <- synStore(myProj)')
+  Hint: Save the result of 'synStore(myProj)' to the 'myProj' variable.
+  
+- Class: cmd_question
+  Output: There are a number of things we can do with the newly created and stored project. For example, we can get the Synapse ID of the project. This is one of many attributes available in the 'properties' field on all Synapse objects. Display this field by using 'myProj$properties$id'; note that it is required that we stored the project in Synapse for an ID to be assigned!
+  CorrectAnswer: myProj$properties$id
+  AnswerTests: omnitest(correctExpr='myProj$properties$id')
+  Hint: Try 'myProj$properties$id' to see the Synapse ID.
+  
+- Class: text
+  Output: Now, create a folder where we can store some files. There are two required arguments for creating a Folder - a name for the Folder and the parentId for where to put the Folder. In this case, we are going to create a new Folder called 'figures' in our newly created Project. Hence, it's parentId will be the ID of the project that we just displayed.
+
+- Class: cmd_question
+  Output: Create a "Folder" with a name of "figures" and a parent ID of the project we just created using the "Folder()" function, and save the result to the "myFolder" variable. Remember how we accessed the Synapse ID of 'myProj' in a previous step; use this as a parameter called "parentId" to the "Folder()" function.
+  CorrectAnswer: myFolder <- Folder(name="figures", parentId=myProj$properties$id)
+  AnswerTests: omnitest(correctExpr='myFolder <- Folder(name="figures", parentId=myProj$properties$id)')
+  Hint: Save the result of 'Folder(name="figures", parentId=myProj$properties$id)' to the 'myFolder' variable.
+  
+- Class: cmd_question
+  Output: Now save the folder to Synapse using the 'synStore()' command passing 'myFolder' as a parameter. We want to return the results and update the 'myFolder' variable.
+  CorrectAnswer: myFolder <- synStore(myFolder)
+  AnswerTests: omnitest(correctExpr='myFolder <- synStore(myFolder)')
+  Hint: Save the result of 'synStore(myFolder)' to the 'myFolder' variable.
+
+- Class: text
+  Output: Lastly, we will create a file and store it on Synapse. Similar to a folder, there are two required arguments for a File - a path to the file and the parentId for where to put the File.
+
+- Class: cmd_question
+  Output: I've prepared some test data for you - it's in the "myData" variable. View it now to check it out.
+  CorrectAnswer: myData
+  AnswerTests: omnitest(correctExpr='myData')
+  Hint: View the 'myData' variable.
+  
+- Class: cmd_question
+  Output: I've also taken the liberty to write this data to a file, and stored the location of the file in the 'myDataPath' variable. Let's create a "File()" using this file. The 'myDataPath' variable will be used as the 'path' parameter, and the Synapse ID of the Folder we created will be used as the 'parentId' parameter. Save the "File" to "myFile".
+  CorrectAnswer: myFile <- File(path=myDataPath, parentId=myFolder$properties$id)
+  AnswerTests: omnitest(correctExpr='myFile <- File(path=myDataPath, parentId=myFolder$properties$id)')
+  Hint: Create a file using 'File(path=myDataPath, parentId=myFolder$properties$id)' and save it to the 'myFie' variable.
+  
+- Class: cmd_question
+  Output: Lastly, save that file to Synapse using 'synStore()' as before (remember to save the results of 'synStore()'!)
+  CorrectAnswer: myFile <- synStore(myFile)
+  AnswerTests: omnitest(correctExpr='myFile <- synStore(myFile)')
+  Hint: Save the result of 'synStore(myFile)' to the 'myFile' variable.
+
+
