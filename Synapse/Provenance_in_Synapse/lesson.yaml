@@ -1,9 +1,9 @@
 - Class: meta
   Course: Synapse
   Lesson: Provenance in Synapse
-  Author: your name goes here
+  Author: Kenneth Daily
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: Sage Bionetworks
   Version: 2.2.21
 
 - Class: cmd_question
@@ -30,3 +30,8 @@
 - Class: text
   Output: Second, many outputs can be "generatedBy" the same "Activity".
 
+- Class: script
+  Output: I've opened up a script that contains code similar to what you've seen so far. Don't change anything. Just study it for a minute, make sure you understand everything that's there, then submit() when you are ready to move on.
+  AnswerTests: script_results_identical('respPvals'); multi_expr_creates_var('respPvals')
+  Hint: If you accidentally changed something in the script, just type reset() to undo your changes, then submit() again.
+  Script: calcpvals.R
