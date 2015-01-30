@@ -14,8 +14,7 @@
   
 - Class: cmd_question
   Output: To start using the R Synapse client, we need to login. Type 'synapseLogin()' to login. Make sure you have a Synapse account first, and you know your username and password. If not, visit 'http://www.synapse.org/' to register.
-  CorrectAnswer: synapseLogin()
-  AnswerTests: omnitest(correctExpr='synapseLogin()')
+  AnswerTests: checkSynLogin()
   Hint: To login, type 'synapseLogin()'
 
 - Class: text
