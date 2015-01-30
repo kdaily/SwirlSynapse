@@ -1,4 +1,6 @@
-# Code placed in this file fill be executed every time the
-# lesson is started. Any variables created here will show up in
-# the user's working directory and thus be accessible to them
-# throughout the lesson.
+# Path to data
+myDataPath <- file.path(path.package('swirl'), 'Courses',
+                        'Synapse', 'Provenance_in_Synapse',
+                        'testdata.csv')
+# Read in data
+myData <- read.csv(myDataPath, strip.white=TRUE, na.strings="")
