@@ -1,0 +1,32 @@
+- Class: meta
+  Course: Synapse
+  Lesson: Provenance in Synapse
+  Author: your name goes here
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.2.21
+
+- Class: cmd_question
+  Output: First, log into synapse using 'synapseLogin()'.
+  CorrectAnswer: synapseLogin()
+  AnswerTests: checkSynLogin()
+  Hint: Login using 'synapseLogin()'.
+
+- Class: text
+  Output: Synapse provides users a way to annotated and track complex analyses. Provenance should be thought of as an assertion as opposed to a 'rubber stamp' or guarantee of correctness. The provenance terminology and features in Synapse are based on the W3C's Provenance recommendations (http://www.w3.org/2011/prov/wiki/Main_Page).
+  
+- Class: text
+  Output: Now we'll explore how to build provenance relationships in Synapse. We do this by using "Activity()" objects.
+
+- Class: text
+  Output: An "Activity" is a Synapse object that helps keep track of what objects were "used" in an analysis step, as well as what objects were "generatedBy" that step.
+  
+- Class: text
+  Output: All relationships between Synapse objects and an "Activity" are governed by dependencies. That is, an "Activity" needs to know what it used, and outputs need to know what "Activity" they were "generatedBy".
+
+- Class: text
+  Output: A couple of clarifications. First, an "Activity" can use many things (i.e. many inputs to an analysis).
+
+- Class: text
+  Output: Second, many outputs can be "generatedBy" the same "Activity".
+
