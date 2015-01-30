@@ -6,11 +6,24 @@
   Organization: Sage Bionetworks
   Version: 2.2.21
 
+- Class: text
+  Output: Before beginning this lesson, you will at the minimum need to have created a Project and a Folder that you have access to. If needed, open another RStudio window and do this now!
+    
 - Class: cmd_question
   Output: First, log into synapse using 'synapseLogin()'.
   CorrectAnswer: synapseLogin()
   AnswerTests: checkSynLogin()
   Hint: Login using 'synapseLogin()'.
+
+- Class: cmd_question
+  Output: Now, using the synapse ID of a Project you created, save it to the 'myProj' variable with 'synGet()'. 
+  AnswerTests: expr_creates_var('myProj')
+  Hint: Use 'synGet()' to get your project and store to 'myProj'.
+
+- Class: cmd_question
+  Output: Also, use 'synGet()' to get a Folder you have created that is part of the Project you retrieved above, and save it to the 'myFolder' variable. If you haven't made a Folder in that Project now, do so before continuing.
+  AnswerTests: expr_creates_var('myFolder')
+  Hint: Use 'synGet()' to get your Folder and store to 'myFolder'. 
 
 - Class: text
   Output: Synapse provides users a way to annotated and track complex analyses. Provenance should be thought of as an assertion as opposed to a 'rubber stamp' or guarantee of correctness. The provenance terminology and features in Synapse are based on the W3C's Provenance recommendations (http://www.w3.org/2011/prov/wiki/Main_Page).
@@ -31,7 +44,14 @@
   Output: Second, many outputs can be "generatedBy" the same "Activity".
 
 - Class: script
-  Output: I've opened up a script that contains code similar to what you've seen so far. Don't change anything. Just study it for a minute, make sure you understand everything that's there, then submit() when you are ready to move on.
-  AnswerTests: script_results_identical('respPvals'); multi_expr_creates_var('respPvals')
-  Hint: If you accidentally changed something in the script, just type reset() to undo your changes, then submit() again.
-  Script: calcpvals.R
+  Output: I've opened up a script that contains code similar to what you've seen so far. Don't change anything. Just study it for a minute, make sure you understand everything that's there, then swirl::submit() when you are ready to move on.
+  AnswerTests: script_results_identical('summarize'); multi_expr_creates_var('myDataFile'); multi_expr_creates_var('summarizedFile')
+  Hint: If you accidentally changed something in the script, just type reset() to undo your changes, then swirl::ubmit() again.
+  Script: summarize.R
+
+- Class: script
+  Output: The previous script (as you saw) summarized 'myData' and saved the resulting file to Synapse inside 'myFolder'. What is missing is the record of how the is file was created. We can do this by utilizing the Synapse provenance functionality to link it back to the data and code. I've opened a script that utilizes a Synapse "Activity" to create a relationship between these Synapse objects. As before, don't change anything. Just study it for a minute, make sure you understand everything that's there, then type 'swirl:submit()' when you are ready to move on.
+  AnswerTests: script_results_identical('activity'); multi_expr_creates_var('myActivity') ; multi_expr_creates_var('codeFile')
+  Script: activity.R
+  Hint: If you accidentally changed something in the script, just type reset() to undo your changes, then swirl::submit() again.
+
